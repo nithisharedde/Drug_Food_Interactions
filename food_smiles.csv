@@ -1,0 +1,41 @@
+Food,SMILES
+Sugar,CCO
+Glucose (Honey),C(C1C(C(C(C(O1)O)O)O)O)O
+Banana,CC(C)O
+Grapes,C(C(CO)O)O
+Apple,CC(C)CO
+Mango,C(CO)O
+Pineapple,CC(C)(O)C
+Papaya,C(C(C(CO)O)O)O
+Strawberry,CC(O)CO
+Watermelon,C(CO)(CO)O
+Sweet Corn,CC(O)C(O)C
+Honey,C(C(CO)O)(O)O
+Dates,CC(O)C(O)CO
+Fig,C(CO)C(O)CO
+Lychee,C(C(CO)O)CO
+Sapota,CC(O)C(O)C(O)C
+Maple Syrup,C(CO)C(O)C(O)O
+Candy,CC(O)COC
+Sugarcane,C(CO)CO
+Sweet Apple,CC(O)C(O)O
+Coffee,C1=CC=CC=C1
+Energy Drink,CCN(CC)CC
+Dark Chocolate,C1=CC=C(C=C1)O
+Bitter Almond,C1=CC=C(C=C1)N
+Tea,C1=CC=CN=C1
+Grapefruit,C1=CC=C(C=C1)Cl
+Bitter Orange,C1=CC=C(C=C1)Br
+Herbal Extract,C1=CC=C(C=C1)F
+Medicinal Herb,C1=CC=C(C=C1)I
+Beer,C1=CC=C(C=C1)C
+Dark Beer,C1=CC=C(C=C1)CC
+Coffee Bean,C1=CC=C(C=C1)CO
+Cocoa,C1=CC=C(C=C1)CN
+Burnt Sugar,C1=CC=C(C=C1)C=O
+Fermented Fruit,C1=CC=C(C=C1)C(=O)O
+Neem Leaf,C1=CC=C(C=C1)NO2
+Bitter Gourd,C1=CC=C(C=C1)OC
+Black Tea,C1=CC=C(C=C1)OCC
+Espresso,C1=CC=C(C=C1)COC
+Tonic Water,C1=CC=C(C=C1)CCO

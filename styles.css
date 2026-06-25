@@ -1,0 +1,92 @@
+/* 🌈 MAIN BACKGROUND */
+body, .stApp {
+    background: linear-gradient(135deg, #e3e5ee, #b7b1bd);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* 🧊 GLASS EFFECT CONTAINER */
+.main {
+    background: rgba(199, 192, 192, 0.08);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+/* 🏷 TITLE */
+h1 {
+    color: #474242;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* 📌 SUBHEADINGS */
+h2, h3 {
+    color: #554f4f;
+}
+
+/* 🎯 BUTTONS */
+.stButton > button {
+    background: linear-gradient(45deg, #ff416c, #ff4b2b);
+    color: white;
+    border-radius: 12px;
+    padding: 10px 25px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.stButton > button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+}
+
+/* 📥 DROPDOWN */
+div[data-baseweb="select"] {
+    border-radius: 10px;
+}
+
+/* 📦 RESULT CARDS */
+.stSuccess {
+    background-color: #2ecc71 !important;
+    color: white !important;
+    border-radius: 12px;
+}
+
+.stError {
+    background-color: #e74c3c !important;
+    color: white !important;
+    border-radius: 12px;
+}
+
+.stWarning {
+    background-color: #f39c12 !important;
+    color: white !important;
+    border-radius: 12px;
+}
+
+.stInfo {
+    background-color: #3498db !important;
+    color: white !important;
+    border-radius: 12px;
+}
+
+/* ✨ INPUT LABELS */
+label {
+    color: white !important;
+    font-weight: bold;
+}
+
+/* 🧾 TEXT */
+p {
+    color: #eeeeee;
+}
+
+/* 🖼 LOGO CENTER */
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

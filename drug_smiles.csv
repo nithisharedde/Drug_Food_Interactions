@@ -1,0 +1,14 @@
+Drug,SMILES
+Paracetamol,CC(=O)NC1=CC=C(O)C=C1
+Aspirin,CC(=O)OC1=CC=CC=C1C(=O)O
+Ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O
+Metformin,CN(C)C(=N)NC(=N)N
+Caffeine,CN1C=NC2=C1C(=O)N(C(=O)N2C)C
+Diphenhydramine,CN(C)CCOC(C1=CC=CC=C1)C2=CC=CC=C2
+Loratadine,CCOC(=O)N1CCC(CC1)OC2=CC=CC=C2Cl
+Cetirizine,ClC1=CC=CC=C1N2CCN(CC2)CCOC3=CC=CC=C3Cl
+Amoxicillin,CC1(C)SCC(N1C(=O)O)C(=O)N
+Omeprazole,COC1=CC2=C(N1)C=NC(=N2)S(=O)C3=NC=NC=C3
+Amlodipine,CCOC(=O)C1=C(C)NC(C)=C(C1C2=CC=CC=C2Cl)C(=O)O
+Propranolol,CC(C)NCC(O)COC1=CC=CC2=CC=CC=C12
+Warfarin,CC(=O)CC(C1=CC=CC=C1)C2=CC=CC=C2O
