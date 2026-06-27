@@ -9,20 +9,26 @@ from rdkit.Chem import AllChem
 if "logged_in" not in st.session_state:
     st.session_state.logged_in = False
 
+if "username" not in st.session_state:
+    st.session_state.username = ""
+
 # ---------------- LOGIN FUNCTION ----------------
 def login():
-    st.title("🔐 Login Page")
-
-    username = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-
-    if st.button("Login"):
-        if username == "admin" and password == "1234":
-            st.session_state.logged_in = True
-            st.success("Login Successful ✅")
-            st.rerun()
+    st.image("logo.png", width=150)
+    st.markdown("""
+    <h1 style='text-align:center;'>🔐 NUTRA AI SYSTEM</h1>
+    <h4 style='text-align:center;color:gray;'>AI-Based Drug-Food Interaction & Taste Prediction</h4>
+    """, unsafe_allow_html=True)
+    st.markdown("---")
+    username=st.text_input("👤 Enter Your Name")
+    if st.button("🚀 Enter System"):
+        if username.strip()=="":
+            st.warning("Please enter your name.")
         else:
-            st.error("Invalid Username or Password ❌")
+            st.session_state.logged_in=True
+            st.session_state.username=username
+            st.success(f"Welcome, {username}! ✅")
+            st.rerun()
 
 # ---------------- LOAD APP ----------------
 def main_app():
@@ -70,8 +76,9 @@ def main_app():
     # ---------------- HOME ----------------
     if page == "🏠 Home":
         st.image("logo.png", width=150)
-        st.title("Drug-Food Interaction System")
-        st.write("Predict interactions and taste using ML.")
+        st.title(f"Welcome, {st.session_state.username}! 👋")
+        st.write("### AI-Based Drug-Food Interaction & Taste Prediction System")
+        st.write("Predict drug-food interactions and taste using trained MLP models.")
 
     # ---------------- PREDICT ----------------
     elif page == "💊 Predict":
