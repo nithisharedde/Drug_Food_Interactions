@@ -43,10 +43,18 @@ def main_app():
 
     # Function
     def smiles_to_fp(smiles):
-        mol = Chem.MolFromSmiles(str(smiles))
-        if mol is None:
-            return None
-        return np.array(AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=1024))
+      mol = Chem.MolFromSmiles(str(smiles))
+
+      if mol is None:
+         return None
+
+      return np.array(
+        AllChem.GetMorganFingerprintAsBitVect(
+            mol,
+            radius=2,
+            nBits=2048
+        )
+    )
 
     # Reason function
     def get_interaction_reason(drug, food):
@@ -109,9 +117,8 @@ def main_app():
                 drug_taste = taste_model.predict([drug_fp])[0]
                 food_taste = taste_model.predict([food_fp])[0]
 
-                st.write(f"Drug Taste: {'Sweet' if drug_taste==1 else 'Bitter'}")
-                st.write(f"Food Taste: {'Sweet' if food_taste==1 else 'Bitter'}")
-
+                st.write("Drug prediction:", drug_taste)
+                st.write("Food prediction:", food_taste)
                 # Interaction
                 st.subheader("Interaction")
 
