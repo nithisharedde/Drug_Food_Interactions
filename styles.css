@@ -1,92 +1,251 @@
-/* 🌈 MAIN BACKGROUND */
-body, .stApp {
-    background: linear-gradient(135deg, #e3e5ee, #b7b1bd);
-    font-family: 'Segoe UI', sans-serif;
+/* ===================================================
+   Drug-Food Interaction — styles.css
+   Colors come from :root variables set by app.py
+   =================================================== */
+
+/* Hide Streamlit chrome */
+#MainMenu, footer, header { visibility: hidden; }
+.block-container { padding-top: 1.2rem; max-width: 1000px; }
+
+/* Page background */
+.stApp { background-color: var(--bg) !important; }
+
+/* ── SIDEBAR ────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    background-color: var(--sidebar-bg) !important;
+}
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] div {
+    color: var(--sidebar-text) !important;
+}
+[data-testid="stSidebar"] hr {
+    border-color: rgba(255,255,255,0.15) !important;
+}
+[data-testid="stSidebar"] .stButton > button {
+    background: rgba(255,255,255,0.12) !important;
+    border: 1px solid rgba(255,255,255,0.25) !important;
+    color: #FFFFFF !important;
+    box-shadow: none !important;
+}
+[data-testid="stSidebar"] .stButton > button p {
+    color: #FFFFFF !important;
 }
 
-/* 🧊 GLASS EFFECT CONTAINER */
-.main {
-    background: rgba(199, 192, 192, 0.08);
-    padding: 20px;
-    border-radius: 20px;
-    backdrop-filter: blur(10px);
-}
-
-/* 🏷 TITLE */
-h1 {
-    color: #474242;
-    text-align: center;
-    font-size: 42px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* 📌 SUBHEADINGS */
-h2, h3 {
-    color: #554f4f;
-}
-
-/* 🎯 BUTTONS */
+/* ── BUTTONS ────────────────────────────────────── */
 .stButton > button {
-    background: linear-gradient(45deg, #ff416c, #ff4b2b);
-    color: white;
-    border-radius: 12px;
-    padding: 10px 25px;
-    border: none;
-    font-size: 16px;
-    font-weight: bold;
-    transition: 0.3s ease;
+    background: var(--btn-bg) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 0.5rem 1.2rem !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.18) !important;
+}
+/* Force white text on ALL buttons — fixes the invisible text bug */
+.stButton > button,
+.stButton > button p,
+.stButton > button span,
+.stButton > button * {
+    color: #FFFFFF !important;
+}
+.stFormSubmitButton > button {
+    background: var(--btn-bg) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    width: 100% !important;
+}
+.stFormSubmitButton > button,
+.stFormSubmitButton > button p,
+.stFormSubmitButton > button * {
+    color: #FFFFFF !important;
 }
 
-.stButton > button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(45deg, #ff4b2b, #ff416c);
+/* ── INPUTS ─────────────────────────────────────── */
+.stTextInput > div > div > input {
+    background: var(--input-bg) !important;
+    color: var(--text) !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 9px !important;
+}
+.stTextInput label { color: var(--text) !important; }
+
+/* Selectbox */
+div[data-baseweb="select"] > div {
+    background: var(--input-bg) !important;
+    border: 2px solid var(--border) !important;
+    border-radius: 9px !important;
+}
+div[data-baseweb="select"] span { color: var(--text) !important; }
+div[data-baseweb="select"] svg  { color: var(--text) !important; }
+.stSelectbox label { color: var(--text) !important; }
+
+/* Dropdown popup list */
+ul[data-baseweb="menu"] { background: var(--card) !important; }
+ul[data-baseweb="menu"] li { color: var(--text) !important; }
+
+/* ── TABS ───────────────────────────────────────── */
+.stTabs [data-baseweb="tab"] {
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    font-weight: 600;
+}
+.stTabs [aria-selected="true"] {
+    color: var(--accent-blue) !important;
+    border-bottom: 2px solid var(--accent-blue) !important;
 }
 
-/* 📥 DROPDOWN */
-div[data-baseweb="select"] {
+/* ── ALERT BANNERS ──────────────────────────────── */
+/* Don't let the page text color bleed into alerts */
+div[data-testid="stAlert"] p { color: inherit !important; }
+
+[data-testid="stAlert"][kind="success"],
+div.element-container div[data-baseweb="notification"][kind="positive"] {
+    background: var(--success-bg) !important;
+    color: var(--success-text) !important;
+    border-left: 4px solid #2D9C5A;
+    border-radius: 10px;
+}
+[data-testid="stAlert"][kind="error"],
+div.element-container div[data-baseweb="notification"][kind="negative"] {
+    background: var(--danger-bg) !important;
+    color: var(--danger-text) !important;
+    border-left: 4px solid #E63946;
+    border-radius: 10px;
+}
+[data-testid="stAlert"][kind="warning"] {
+    background: var(--warn-bg) !important;
+    color: var(--warn-text) !important;
+    border-left: 4px solid #F5A623;
+    border-radius: 10px;
+}
+[data-testid="stAlert"][kind="info"] {
+    background: var(--info-bg) !important;
+    color: var(--info-text) !important;
+    border-left: 4px solid #2A6F97;
     border-radius: 10px;
 }
 
-/* 📦 RESULT CARDS */
-.stSuccess {
-    background-color: #2ecc71 !important;
-    color: white !important;
+/* ── METRIC CARDS ───────────────────────────────── */
+[data-testid="metric-container"] {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 12px;
+    padding: 14px 16px;
+}
+[data-testid="metric-container"] label { color: var(--text-muted) !important; }
+[data-testid="metric-container"] [data-testid="stMetricValue"] {
+    color: var(--text) !important;
 }
 
-.stError {
-    background-color: #e74c3c !important;
-    color: white !important;
-    border-radius: 12px;
+/* ── FORMS (login card) ─────────────────────────── */
+div[data-testid="stForm"] {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 14px;
+    padding: 1.4rem 1.6rem;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
 }
 
-.stWarning {
-    background-color: #f39c12 !important;
-    color: white !important;
-    border-radius: 12px;
+/* ── GENERAL TEXT (page body only) ─────────────── */
+/* Scoped to the main content area so buttons/alerts aren't affected */
+.main .block-container h1,
+.main .block-container h2,
+.main .block-container h3,
+.main .block-container h4 {
+    color: var(--text) !important;
+}
+.main .block-container p { color: var(--text) !important; }
+
+/* ── CUSTOM CARDS ───────────────────────────────── */
+.info-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+}
+.info-card h4 { margin: 0 0 6px; color: var(--text) !important; font-size: 15px; }
+.info-card p  { margin: 0; color: var(--text-muted) !important; font-size: 13px; }
+
+.tip-box {
+    background: var(--tip-bg);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin: 1rem 0;
+}
+.tip-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: var(--accent-blue) !important;
+    margin-bottom: 4px;
+}
+.tip-text { color: var(--text) !important; font-size: 14px; line-height: 1.6; }
+
+/* Sidebar user card */
+.sidebar-user {
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+}
+.sidebar-user .s-name { font-weight: 700; font-size: 15px; color: #fff !important; }
+.sidebar-user .s-role { font-size: 12px; opacity: 0.7;   color: #fff !important; }
+
+/* Result capsule */
+.capsule-wrap {
+    position: relative;
+    display: flex;
+    height: 50px;
+    max-width: 320px;
+    margin: 1rem auto 0.3rem;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.20);
+}
+.cap-red  { flex:1; background: linear-gradient(135deg,#E63946,#FF6B7A); }
+.cap-blue { flex:1; background: linear-gradient(135deg,#2A6F97,#5FA8CC); }
+.cap-ekg  {
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    display:flex; align-items:center; justify-content:center;
+}
+.capsule-label {
+    text-align:center; font-weight:800; font-size:16px;
+    margin-top:6px; color:var(--text) !important;
 }
 
-.stInfo {
-    background-color: #3498db !important;
-    color: white !important;
-    border-radius: 12px;
+/* Severity badges */
+.badge {
+    display:inline-block; padding:5px 14px;
+    border-radius:20px; font-weight:700; font-size:13px;
+}
+.badge-safe   { background:#E7F7ED; color:#1A5C35 !important; border:1px solid #2D9C5A; }
+.badge-caution{ background:#FFF5E0; color:#7A5000 !important; border:1px solid #F5A623; }
+.badge-danger { background:#FDEBEC; color:#8B1A24 !important; border:1px solid #E63946; }
+
+/* Download button looks like a link */
+.stDownloadButton > button {
+    background: transparent !important;
+    border: 1px solid var(--border) !important;
+    color: var(--accent-blue) !important;
+    box-shadow: none !important;
+    font-weight: 600 !important;
+}
+.stDownloadButton > button * { color: var(--accent-blue) !important; }
+
+.disclaimer {
+    font-size: 12px;
+    color: var(--text-muted) !important;
+    margin-top: 1.4rem;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
 }
 
-/* ✨ INPUT LABELS */
-label {
-    color: white !important;
-    font-weight: bold;
-}
-
-/* 🧾 TEXT */
-p {
-    color: #eeeeee;
-}
-
-/* 🖼 LOGO CENTER */
-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
+img { display: block; margin: 0 auto; }
