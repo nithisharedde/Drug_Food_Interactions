@@ -1,14 +1,3 @@
-"""
-auth.py
---------
-Lightweight authentication and history storage for the Drug-Food
-Interaction app. Uses SQLite (built into Python, no extra dependency)
-and salted PBKDF2 password hashing (no plaintext / hardcoded
-credentials anywhere).
-
-This replaces the old hardcoded admin/1234 check with real accounts
-that users create themselves.
-"""
 
 import os
 import re
@@ -21,9 +10,9 @@ USERNAME_RE = re.compile(r"^[a-zA-Z0-9_]{3,20}$")
 EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
-# ---------------------------------------------------------------------------
-# Connection / schema
-# ---------------------------------------------------------------------------
+
+# Connection 
+
 def get_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
@@ -66,9 +55,9 @@ def init_db():
     conn.close()
 
 
-# ---------------------------------------------------------------------------
+
 # Password hashing
-# ---------------------------------------------------------------------------
+
 def hash_password(password: str, salt=None):
     """PBKDF2-HMAC-SHA256 with a random 16-byte salt. No plaintext storage."""
     if salt is None:
@@ -85,9 +74,9 @@ def hashlib_pbkdf2(password: str, salt: str) -> str:
     ).hex()
 
 
-# ---------------------------------------------------------------------------
+
 # Validation
-# ---------------------------------------------------------------------------
+
 def valid_username(username: str) -> bool:
     return bool(USERNAME_RE.match(username or ""))
 
@@ -96,9 +85,9 @@ def valid_email(email: str) -> bool:
     return bool(EMAIL_RE.match(email or ""))
 
 
-# ---------------------------------------------------------------------------
+
 # User management
-# ---------------------------------------------------------------------------
+
 def create_user(username: str, email: str, password: str):
     """Returns (success: bool, message: str)."""
     username = (username or "").strip()
@@ -147,9 +136,9 @@ def verify_user(username: str, password: str):
     return False, None
 
 
-# ---------------------------------------------------------------------------
+
 # History
-# ---------------------------------------------------------------------------
+
 def save_history(user_id, drug, food, interaction, reason, drug_taste, food_taste, confidence):
     conn = get_connection()
     conn.execute(

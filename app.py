@@ -130,7 +130,7 @@ def get_severity(interaction_yes):
     if interaction_yes:
         return "danger", "🔴 High Risk"
     return "safe", "✅ Safe"
-    return "caution", "⚠️ Caution"
+    
 
 def make_report(username, drug, food, interaction_yes, reason,
                 drug_taste, food_taste, confidence, sev):
@@ -145,8 +145,7 @@ def make_report(username, drug, food, interaction_yes, reason,
         f"Result     : {'INTERACTION' if interaction_yes else 'NO INTERACTION'}",
         f"Risk level : {sev}",
     ]
-    if confidence:
-        lines.append(f"Confidence : {confidence:.1f}%")
+    
     if interaction_yes:
         lines.append(f"Reason     : {reason}")
     lines += [
@@ -161,7 +160,7 @@ def make_report(username, drug, food, interaction_yes, reason,
     return "\n".join(lines)
 
 
-# ── LOGIN / SIGNUP PAGE ───────────────────────────────────────────────────────
+# ── LOGIN / SIGNUP PAGE ────────
 def auth_screen():
 
     # Theme toggle — top centre
@@ -251,7 +250,7 @@ def auth_screen():
         )
 
 
-# ── MAIN APP ──────────────────────────────────────────────────────────────────
+# ── MAIN APP ──────
 def main_app():
 
     # Load models and data
@@ -266,7 +265,7 @@ def main_app():
 
     history = auth.get_history(st.session_state.user_id)
 
-    # ── SIDEBAR ───────────────────────────────────────────────────────────────
+    # ── SIDEBAR ─────────
     with st.sidebar:
         try:
             st.image("logo.png", width=65)
@@ -312,7 +311,7 @@ def main_app():
             st.session_state.username  = None
             st.rerun()
 
-    # ── HOME ──────────────────────────────────────────────────────────────────
+    # ── HOME ────────
     if page == "🏠 Home":
 
         # Hero
@@ -363,7 +362,7 @@ def main_app():
             st.markdown("<div class='info-card'><h4>🎯 Risk Level</h4><p>Results are graded Safe, Caution, or High Risk based on the prediction and model confidence.</p></div>", unsafe_allow_html=True)
             st.markdown("<div class='info-card'><h4>📋 History & Reports</h4><p>All checks are saved to your account and can be downloaded as a text report.</p></div>", unsafe_allow_html=True)
 
-    # ── PREDICT ───────────────────────────────────────────────────────────────
+    # ── PREDICT ────────
     elif page == "💊 Predict":
         st.title("💊 Predict Interaction")
         st.write("Select a drug and a food, then click **Predict**.")
@@ -472,7 +471,7 @@ def main_app():
                     unsafe_allow_html=True,
                 )
 
-    # ── HISTORY ───────────────────────────────────────────────────────────────
+    # ── HISTORY ───
     elif page == "🕘 History":
         st.title("🕘 Your History")
 
@@ -514,7 +513,7 @@ def main_app():
                     st.success("History cleared.")
                     st.rerun()
 
-    # ── ABOUT ─────────────────────────────────────────────────────────────────
+    # ── ABOUT ─────────
     elif page == "ℹ️ About":
         st.title("ℹ️ About This Project")
 
@@ -545,7 +544,7 @@ def main_app():
         )
 
 
-# ── RUN ───────────────────────────────────────────────────────────────────────
+# ── RUN ──────────
 if not st.session_state.logged_in:
     auth_screen()
 else:
