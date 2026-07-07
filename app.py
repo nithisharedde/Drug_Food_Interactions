@@ -110,13 +110,8 @@ def smiles_to_fp(smiles):
     mol = Chem.MolFromSmiles(str(smiles))
     if mol is None:
         return None
-    return np.array(AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=1024))
+    return np.array(AllChem.GetMorganFingerprintAsBitVect(mol, 2, nBits=2048))
 
-def get_confidence(model, fp):
-    try:
-        return float(np.max(model.predict_proba(fp))) * 100
-    except Exception:
-        return None
 
 def get_reason(drug, food):
     d, f = drug.lower(), food.lower()
@@ -131,12 +126,10 @@ def get_reason(drug, food):
     if "tetracycline" in d:
         return "Dairy or minerals in this food reduce antibiotic absorption."
     return "Possible interaction — consult a pharmacist."
-
-def get_severity(interaction_yes, confidence):
-    if not interaction_yes:
-        return "safe", "✅ Safe"
-    if confidence and confidence >= 80:
+def get_severity(interaction_yes):
+    if interaction_yes:
         return "danger", "🔴 High Risk"
+    return "safe", "✅ Safe"
     return "caution", "⚠️ Caution"
 
 def make_report(username, drug, food, interaction_yes, reason,
@@ -355,10 +348,10 @@ def main_app():
             conf_vals = [r["confidence"] for r in history if r["confidence"]]
             avg_conf  = f"{sum(conf_vals)/len(conf_vals):.0f}%" if conf_vals else "—"
 
-            c1, c2, c3 = st.columns(3)
-            c1.metric("Total Checks",       len(history))
+            c1, c2 = st.columns(2)
+
+            c1.metric("Total Checks", len(history))
             c2.metric("Interactions Found", yes_count)
-            c3.metric("Avg. Confidence",    avg_conf)
 
         st.markdown("---")
         st.subheader("What this app does")
@@ -393,14 +386,20 @@ def main_app():
                 st.error("Invalid SMILES in your data file — please check the CSV.")
             else:
                 combined = np.concatenate((drug_fp, food_fp)).reshape(1, -1)
-                pred      = interaction_model.predict(combined)[0]
-                conf      = get_confidence(interaction_model, combined)
-                drug_taste = "Sweet" if taste_model.predict(drug_fp.reshape(1,-1))[0] == 1 else "Bitter"
-                food_taste = "Sweet" if taste_model.predict(food_fp.reshape(1,-1))[0] == 1 else "Bitter"
+                print("Drug FP shape:", drug_fp.shape)
+                print("Food FP shape:", food_fp.shape)
+                print("Combined shape:", combined.shape)
+                pred = interaction_model.predict(combined)[0]
 
-                interaction_yes     = (pred == 1)
-                reason              = get_reason(drug_name, food_name) if interaction_yes else "—"
-                sev_key, sev_label  = get_severity(interaction_yes, conf)
+                drug_pred = taste_model.predict(drug_fp.reshape(1, -1))[0]
+                food_pred = taste_model.predict(food_fp.reshape(1, -1))[0]
+
+                drug_taste = str(drug_pred)
+                food_taste = str(food_pred)
+
+                interaction_yes = (pred == 1)
+                reason = get_reason(drug_name, food_name) if interaction_yes else "—"
+                sev_key, sev_label = get_severity(interaction_yes)
 
                 # Capsule visual
                 st.markdown(
@@ -424,10 +423,11 @@ def main_app():
                 )
 
                 # Metrics
-                m1, m2, m3 = st.columns(3)
-                m1.metric("Drug Taste",  drug_taste)
-                m2.metric("Food Taste",  food_taste)
-                m3.metric("Confidence",  f"{conf:.0f}%" if conf else "—")
+                m1, m2 = st.columns(2)
+
+                m1.metric("Drug Taste", drug_taste)
+                m2.metric("Food Taste", food_taste)
+
 
                 # Result message
                 if interaction_yes:
@@ -437,16 +437,28 @@ def main_app():
 
                 # Save to history
                 auth.save_history(
-                    st.session_state.user_id, drug_name, food_name,
+                    st.session_state.user_id,
+                    drug_name,
+                    food_name,
                     "YES" if interaction_yes else "NO",
-                    reason, drug_taste, food_taste, conf,
-                )
+                    reason,
+                    drug_taste,
+                    food_taste,
+                    None,
+)
 
                 # Download report
                 report = make_report(
-                    st.session_state.username, drug_name, food_name,
-                    interaction_yes, reason, drug_taste, food_taste, conf, sev_label,
-                )
+                    st.session_state.username,
+                    drug_name,
+                    food_name,
+                    interaction_yes,
+                    reason,
+                    drug_taste,
+                    food_taste,
+                    None,
+                    sev_label,
+)
                 st.download_button(
                     "📄 Download Report",
                     data=report,
@@ -479,7 +491,7 @@ def main_app():
                     "Drug": r["drug"],
                     "Food": r["food"],
                     "Result": f"{icon} {r['interaction']}",
-                    "Confidence": f"{r['confidence']:.0f}%" if r["confidence"] else "—",
+                    
                     "Drug Taste": r["drug_taste"],
                     "Food Taste": r["food_taste"],
                 })
